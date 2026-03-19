@@ -11,22 +11,19 @@ npm run dev
 
 The portfolio UI works with `vite`. The contact form uses a Vercel serverless function at `/api/contact`, so for full local form testing use `vercel dev`.
 
-## Contact form setup with Google Sheets
+## Contact form setup with Firebase Firestore
 
-1. Create a Google Sheet to collect responses.
-2. Open `Extensions -> Apps Script` inside that sheet.
-3. Paste the code from `google-apps-script/Code.gs`.
-4. Replace `CHANGE_ME_SECRET` in the script with your own long random secret.
-5. Deploy the script as a web app:
-   - `Execute as`: `Me`
-   - `Who has access`: `Anyone`
-6. Copy the deployed web app URL.
-7. Create Vercel environment variables from `.env.example`:
+1. Create a Firebase project.
+2. Enable `Cloud Firestore` in production mode.
+3. In `Project settings -> Service accounts`, generate a new private key JSON.
+4. Copy these values into your local `.env` or your Vercel env settings:
 
-- `GOOGLE_SCRIPT_URL`
-- `GOOGLE_SCRIPT_SECRET`
+- `FIREBASE_PROJECT_ID`
+- `FIREBASE_CLIENT_EMAIL`
+- `FIREBASE_PRIVATE_KEY`
+- `FIREBASE_COLLECTION` (optional, defaults to `contact_submissions`)
 
-The Vercel backend forwards validated form submissions to your Apps Script, and the Apps Script appends them to your Google Sheet.
+The Vercel backend validates the form and writes each submission to Firestore using the Firebase Admin SDK.
 
 ## Deploy on Vercel
 
@@ -34,7 +31,7 @@ The Vercel backend forwards validated form submissions to your Apps Script, and 
 2. Framework preset: `Vite`
 3. Build command: `npm run build`
 4. Output directory: `dist`
-5. Add the Google Sheets env vars above.
+5. Add the Firebase env vars above.
 6. Redeploy after saving the env vars.
 
-Responses will appear in your Google Sheet and can be exported as Excel anytime.
+Responses will appear in your Firestore collection.

@@ -1,16 +1,7 @@
-import { useRef } from "react";
-import balaMain from "../../assets/bala-main.jpeg";
 import balaStanding from "../../assets/bala-standing.jpeg";
-import { useHoverEffect } from "../Intro/useHoverEffect";
 import { profile } from "../../data/profile";
 
-const data = {
-  img1: balaMain,
-  img2: balaStanding,
-};
 const Myself = () => {
-  const heroImgRef = useRef(null);
-  useHoverEffect(heroImgRef, data.img1, data.img2);
   return (
     <section className="myself" id="myself">
       <div className="myself_content">
@@ -20,7 +11,13 @@ const Myself = () => {
         </div>
         <div className="myself_flex">
           <div className="myself_width">
-            <div className="myself_left" ref={heroImgRef}></div>
+            <div className="myself_left">
+              <img
+                className="myself_photo"
+                src={balaStanding}
+                alt="Bala standing portrait"
+              />
+            </div>
           </div>
           <div className="myself_right">
             <div className="myself_aboutme myself_borderone">

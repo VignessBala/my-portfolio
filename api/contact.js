@@ -1,3 +1,6 @@
+import { FieldValue } from "firebase-admin/firestore";
+import { getContactCollection, getDb } from "./_firebaseAdmin.js";
+
 const json = (payload, status = 200) =>
   new Response(JSON.stringify(payload), {
     status,
@@ -15,6 +18,7 @@ const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
 export async function POST(request) {
   let payload;
+  const receivedAt = new Date().toISOString();
 
   try {
     payload = await request.json();
@@ -40,61 +44,34 @@ export async function POST(request) {
     return json({ error: "Please enter a valid email address." }, 400);
   }
 
-  if (!process.env.GOOGLE_SCRIPT_URL || !process.env.GOOGLE_SCRIPT_SECRET) {
-    return json(
-      {
-        error:
-          "Google Sheets form storage is not configured yet. Add the required Vercel env vars first.",
-      },
-      500,
-    );
-  }
-
   try {
-    const upstreamResponse = await fetch(process.env.GOOGLE_SCRIPT_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        secret: process.env.GOOGLE_SCRIPT_SECRET,
-        name,
-        email,
-        subject,
-        message,
-        source: "portfolio-contact-form",
-      }),
+    const db = getDb();
+    const forwardedFor = request.headers.get("x-forwarded-for") || "";
+    const ipAddress = sanitize(forwardedFor.split(",")[0], 120);
+    const userAgent = sanitize(request.headers.get("user-agent"), 300);
+
+    await db.collection(getContactCollection()).add({
+      name,
+      email,
+      subject,
+      message,
+      source: "portfolio-contact-form",
+      createdAt: FieldValue.serverTimestamp(),
+      receivedAt,
+      ipAddress,
+      userAgent,
     });
-
-    const upstreamText = await upstreamResponse.text();
-    let upstreamJson = {};
-
-    try {
-      upstreamJson = upstreamText ? JSON.parse(upstreamText) : {};
-    } catch {
-      upstreamJson = {};
-    }
-
-    if (!upstreamResponse.ok || !upstreamJson.ok) {
-      return json(
-        {
-          error:
-            upstreamJson.error ||
-            "Google Sheets storage rejected the submission.",
-        },
-        502,
-      );
-    }
 
     return json({
       ok: true,
       message: "Message stored successfully.",
     });
-  } catch {
+  } catch (error) {
     return json(
       {
         error:
-          "Could not reach the Google Sheets backend. Check the Apps Script deployment URL and access settings.",
+          error?.message ||
+          "Could not store the message in Firestore. Check the Firebase Admin credentials and collection settings.",
       },
       502,
     );

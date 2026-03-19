@@ -33,6 +33,8 @@
         @include manual_size(450px,450px);
         overflow: hidden;
         border-radius: 20px;
+        position: relative;
+        background: #131316;
 
         @include mobile{
             @include manual_size(350px,350px);
@@ -42,16 +44,16 @@
             @include manual_size(350px,500px);
         }
 
-        img {
+        .myself_photo {
+            position: absolute;
+            inset: 0;
             width: 100%;
-            object-fit: cover;
-            border-radius: 20px;
             height: 100%;
+            object-fit: cover;
+            object-position: center 28%;
+            border-radius: 20px;
             transition: 0.5s ease;
-    
-            @include mobile{
-                height: 100%;
-            }
+            display: block;
         }
     }
     

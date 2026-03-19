@@ -5,6 +5,7 @@ import { profile } from "../../data/profile";
 
 const Navigation = () => {
   const [isSidemenuActive, setSidemenuActive] = useState(true);
+  const emailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profile.email)}`;
 
   const toggleSidemenu = () => {
     setSidemenuActive(false);
@@ -126,8 +127,12 @@ const Navigation = () => {
               </svg>
             </a>
             <a
-              href={`mailto:${profile.email}`}
+              href={emailHref}
               className="nav_git nav-flx"
+              aria-label={`Email ${profile.email}`}
+              title={profile.email}
+              target="_blank"
+              rel="noreferrer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
