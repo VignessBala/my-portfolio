@@ -1,33 +1,16 @@
-import React, { useState, useEffect } from "react";
-import Preloader from "./components/Preloader/Preloader";
-import Mycomp from "./components/Main/Mycomp";
-import "./js/app";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import React from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import AdminPage from "./pages/AdminPage";
+import PortfolioPage from "./pages/PortfolioPage";
 
-function App() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    window.onload = () => {
-      AOS.init({
-        duration: 700,
-        easing: "ease-out-cubic",
-      });
-    };
-  }, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-  }, []);
-
+function AppRouter() {
   return (
-    <div className="App">
-      {isLoading ? <Preloader /> : <Mycomp />}
-    </div>
+    <Routes>
+      <Route path="/" element={<PortfolioPage />} />
+      <Route path="/admin" element={<AdminPage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 
-export default App;
+export default AppRouter;

@@ -35,3 +35,28 @@ The Vercel backend validates the form and writes each submission to Firestore us
 6. Redeploy after saving the env vars.
 
 Responses will appear in your Firestore collection.
+
+## Admin dashboard
+
+The portfolio also supports a protected `/admin` route that lets you sign in and view contact form submissions.
+
+Add these additional env vars locally and in Vercel:
+
+- `ADMIN_USERNAME`
+- `ADMIN_PASSWORD`
+- `ADMIN_SESSION_SECRET`
+
+The admin APIs use an `HttpOnly` signed session cookie, so the Firestore submissions endpoint is protected server-side.
+
+## Export contact submissions
+
+Use the same Firebase env vars from your `.env` to export the `contact_submissions` collection locally:
+
+```bash
+npm run export:contacts
+```
+
+The script writes timestamped files to `exports/`:
+
+- `contact-submissions-*.json`
+- `contact-submissions-*.csv`
