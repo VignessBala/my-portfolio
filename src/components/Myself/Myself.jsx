@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import balaMain from "../../assets/bala-main.jpeg";
-import balaHover from "../../assets/bala-hover.jpeg";
+import balaStanding from "../../assets/bala-standing.jpeg";
 import { useHoverEffect } from "../Intro/useHoverEffect";
 import { profile } from "../../data/profile";
 
 const data = {
   img1: balaMain,
-  img2: balaHover,
+  img2: balaStanding,
 };
 const Myself = () => {
   const heroImgRef = useRef(null);
