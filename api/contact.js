@@ -11,14 +11,6 @@ const sanitize = (value, maxLength) =>
     .trim()
     .slice(0, maxLength);
 
-const escapeHtml = (value) =>
-  value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-
 const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
 export async function POST(request) {
@@ -48,66 +40,65 @@ export async function POST(request) {
     return json({ error: "Please enter a valid email address." }, 400);
   }
 
-  if (
-    !process.env.RESEND_API_KEY ||
-    !process.env.CONTACT_TO_EMAIL ||
-    !process.env.CONTACT_FROM_EMAIL
-  ) {
+  if (!process.env.GOOGLE_SCRIPT_URL || !process.env.GOOGLE_SCRIPT_SECRET) {
     return json(
       {
         error:
-          "Mail delivery is not configured yet. Add the Vercel env vars before using the form.",
+          "Google Sheets form storage is not configured yet. Add the required Vercel env vars first.",
       },
       500,
     );
   }
 
-  const resendResponse = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: process.env.CONTACT_FROM_EMAIL,
-      to: [process.env.CONTACT_TO_EMAIL],
-      replyTo: email,
-      subject: `[Portfolio] ${subject}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; line-height: 1.7; color: #1d2630;">
-          <h2 style="margin-bottom: 16px;">New portfolio inquiry</h2>
-          <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-          <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-          <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
-          <p><strong>Message:</strong></p>
-          <p>${escapeHtml(message).replaceAll("\n", "<br />")}</p>
-        </div>
-      `,
-      text: `New portfolio inquiry
+  try {
+    const upstreamResponse = await fetch(process.env.GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        secret: process.env.GOOGLE_SCRIPT_SECRET,
+        name,
+        email,
+        subject,
+        message,
+        source: "portfolio-contact-form",
+      }),
+    });
 
-Name: ${name}
-Email: ${email}
-Subject: ${subject}
+    const upstreamText = await upstreamResponse.text();
+    let upstreamJson = {};
 
-Message:
-${message}`,
-    }),
-  });
+    try {
+      upstreamJson = upstreamText ? JSON.parse(upstreamText) : {};
+    } catch {
+      upstreamJson = {};
+    }
 
-  if (!resendResponse.ok) {
-    const errorPayload = await resendResponse.json().catch(() => ({}));
+    if (!upstreamResponse.ok || !upstreamJson.ok) {
+      return json(
+        {
+          error:
+            upstreamJson.error ||
+            "Google Sheets storage rejected the submission.",
+        },
+        502,
+      );
+    }
 
+    return json({
+      ok: true,
+      message: "Message stored successfully.",
+    });
+  } catch {
     return json(
       {
         error:
-          errorPayload?.message ||
-          "The mail provider rejected the request. Check the configured sender and API key.",
+          "Could not reach the Google Sheets backend. Check the Apps Script deployment URL and access settings.",
       },
       502,
     );
   }
-
-  return json({ ok: true, message: "Message delivered successfully." });
 }
 
 export async function GET() {
