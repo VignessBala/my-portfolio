@@ -1,0 +1,14 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Bold minimal B with subtle V cut -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- B spine -->
+    <path d="M20 14V50" stroke="white" stroke-width="8"/>
+    
+    <!-- B bowls -->
+    <path d="M20 14H34C40 14 44 18 44 23C44 28 40 32 34 32H20" stroke="white" stroke-width="8"/>
+    <path d="M20 32H36C42 32 46 36 46 41C46 46 42 50 36 50H20" stroke="white" stroke-width="8"/>
+    
+    <!-- Subtle V accent -->
+    <path d="M36 18L46 46L52 28" stroke="#A78BFA" stroke-width="5"/>
+  </g>
+</svg>

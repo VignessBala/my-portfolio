@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../../assets/821133712.svg";
+import logo from "../../assets/bala-header-logo.svg";
 import { Link } from "react-scroll";
 import { profile } from "../../data/profile";
 

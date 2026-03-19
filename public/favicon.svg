@@ -1,7 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-  <rect width="128" height="128" rx="30" fill="#bf5a2a" />
-  <path
-    d="M31 32h31c18 0 29 9 29 24 0 11-6 18-16 21 12 2 19 10 19 22 0 17-12 29-32 29H31V32Zm19 17v20h10c8 0 12-3 12-10 0-7-4-10-12-10H50Zm0 37v25h13c8 0 13-4 13-12s-5-13-13-13H50Z"
-    fill="#fff5ee"
-  />
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark rounded background -->
+  <rect x="0" y="0" width="64" height="64" rx="14" fill="#0F172A"/>
+
+  <!-- Bold B monogram -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Spine -->
+    <path d="M22 14V50" stroke="white" stroke-width="10"/>
+    
+    <!-- Top bowl -->
+    <path d="M22 14H36C42 14 46 18 46 22C46 26 42 30 36 30H22" stroke="white" stroke-width="10"/>
+    
+    <!-- Bottom bowl -->
+    <path d="M22 30H38C44 30 48 34 48 38C48 42 44 50 38 50H22" stroke="white" stroke-width="10"/>
+    
+    <!-- Subtle V accent -->
+    <path d="M36 18L46 46L52 28" stroke="#8B5CF6" stroke-width="6"/>
+  </g>
 </svg>

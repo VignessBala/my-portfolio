@@ -31,15 +31,20 @@
     }
     .nav_pic{
         @include center_flex(flex-start);
-        @include manual_size(45px,45px);
+        @include manual_size(140px,40px);
+        flex-shrink: 0;
 
         @include mobile{
-            @include manual_size(25px,25px);
+            @include manual_size(92px,28px);
         }
     }
     .nav_logo{
         cursor: pointer;
         width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: left center;
+        display: block;
     }
     .nav_ul{
         @include center_flex(center);
