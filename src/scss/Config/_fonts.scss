@@ -1,0 +1,46 @@
+// 
+// SIZES ---------
+// 
+
+$nav-height: 6rem;
+
+$xs-size: 10px;
+$s-size: 12px;
+$m-size: 14px;
+$l-size: 16px;
+$xl-size: 18px;
+$xxl-size: 22px;
+
+$top: 10rem;
+$top-mobile: 8.5rem;
+$bottom: 15rem;
+$line-height: 2.4rem;
+
+$pad-desktop: 10rem;
+
+@font-face {
+    font-family: "k_reg";
+    src: url("/src/assets/Inter/DMSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "k_med";
+    src: url("/src/assets/Inter/DMSans-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "k_sbold";
+    src: url("/src/assets/Inter/DMSans-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "k_bold";
+    src: url("/src/assets/Inter/DMSans-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "style";
+    src: url("/src/assets/Inter/emerland.ttf") format("truetype");
+}
+
+

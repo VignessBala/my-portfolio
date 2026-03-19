@@ -1,0 +1,39 @@
+// Breakpoints
+$mobile: 450px;
+$tablet: 750px;
+$laptop: 1080px;
+$desktop: 1280px;
+$l-desktop: 1400px;
+
+
+//Button For Website
+
+@mixin new_btn{
+    padding: 0 20px 0 73px;
+    margin: 5px 20px 5px 0;
+    max-width: 100%;
+    color: $fontnav;
+    @include semi(16px);
+    text-transform: uppercase;
+    border: 2px solid $introfont;
+    line-height: 36px;
+    position: relative;
+    text-align: center;
+    letter-spacing: .5px;
+    outline: none;
+    background: none !important;
+    outline-color: transparent;
+    transition: all .3s ease;
+    border-radius: 12px;
+  
+    &:hover{
+      border-color: $primary_color;
+      color: $white;
+      transition: all .3s ease;
+    }
+
+    @include tablet{
+      margin: 0 5px;
+    }
+  }
+

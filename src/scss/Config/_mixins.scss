@@ -1,0 +1,77 @@
+
+//Media Query
+@mixin l-desktop {
+  @media (min-width: $l-desktop) {
+    @content;
+  }
+}
+
+@mixin desktop {
+@media (min-width: $desktop) and (max-width: $l-desktop) {
+  @content;
+}
+}
+
+
+@mixin tablet {
+@media (max-width: $tablet) {
+  @content;
+}
+}
+
+@mixin mobile {
+@media (max-width: $mobile) {
+  @content;
+}
+}
+@mixin laptop {
+  @media (max-width: $laptop) {
+    @content;
+  }
+  }
+
+.checkout {
+  width: 100%;
+  animation: slide-up .5s ease;
+
+  @include mobile {
+    margin-top: 2rem;
+  }
+}
+
+@mixin manual_size($m_width:100px,$m_height:100px){
+  width: $m_width;
+  height: $m_height;
+}
+@mixin grid_system($grid_set: 4, $gap_set: 20px) {
+  display: grid;
+  grid-template-columns: repeat($grid_set, 1fr);
+  grid-gap: $gap_set;
+}
+@mixin center_flex($flex_set: space-between) {
+  display: flex;
+  justify-content: $flex_set;
+  align-items: center;
+}
+
+@mixin regular($font_size: 1em, $font_height: 1.2) {
+    font:
+        #{$font_size}/#{$font_height} "k_reg",sans-serif;
+}
+@mixin bold($font_size: 1em, $font_height: 1.2) {
+  font:
+      #{$font_size}/#{$font_height} "k_bold",sans-serif;
+}
+@mixin medium($font_size: 1em, $font_height: 1.2) {
+  font:
+      #{$font_size}/#{$font_height} "k_medium",sans-serif;
+}
+@mixin semi($font_size: 1em, $font_height: 1.2) {
+  font:
+      #{$font_size}/#{$font_height} "k_sbold",sans-serif;
+}
+
+@mixin style($font_size: 1em, $font_height: 1.2) {
+  font:
+      #{$font_size}/#{$font_height} "style";
+}

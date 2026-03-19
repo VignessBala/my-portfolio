@@ -1,0 +1,111 @@
+.light-theme{
+     background: $background-color;
+     transition: background-color 0.5s ease;
+
+     .navbar{
+        background: rgba(255, 255, 255, 0.25);
+        -webkit-backdrop-filter: blur(2px);
+        backdrop-filter: blur(2px);
+     }
+     .nav_li{
+        color: $boxcolor !important;
+
+        a {
+         color: $boxcolor !important;
+        }
+     }
+     .ryt_li{
+
+      a {
+          color: $fontnav;
+      }
+  }
+     .nav_pix{
+        color: $new_logo !important;
+     }
+     .intro_tname{
+        color: $introfont !important;
+     }
+     .intro_span{
+        color: $boxcolor !important;
+     }
+     .not_sun{
+      display: none;
+    }
+   .nav_moon{
+      color: $new_logo;
+      cursor: pointer;
+      display: block !important;
+   }
+   .nav_burger{
+      color: $new_logo !important;
+  }
+   .no_bacsha{
+      background: $bttoncolor !important;
+      color: $boxcolor !important;
+   }
+   .intro_resume{
+      box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+      7px 7px 20px 0px rgba(0,0,0,.1),
+      4px 4px 5px 0px rgba(0,0,0,.1); 
+   }
+   .intro_newbtn{
+      &:hover{
+         color: $new_logo !important;
+      }
+      .intro_spanz,.intro_down{
+         color: $new_logo !important;
+      }
+   }
+   .fade {
+      background: linear-gradient(90deg, $background-color, transparent 30%, transparent 70%, $background-color);
+    }
+    .tag{
+      color: $black !important;
+    }
+    .myself_t2{
+      color: $black !important;
+    }
+    .myself_brief{
+      color: $black !important;
+    }
+    .myself_address{
+      color: $black !important;
+    }
+    .myself_aboutme{
+      border: 1px solid #cbcbd1 !important;
+    }
+    .qualification__title, .qualification_p{
+      color: $black !important;
+    }
+    .qualify_iconsz{
+      color: black !important;
+    }
+    .contact_link{
+      border: 1px solid $black !important;
+      color: $black !important;
+    }
+    .contact_detail{
+      color: $black !important;
+    }
+    .contact_box{
+      border: 1px solid $black !important;
+    }
+    .contact_span{
+      color: $black !important;
+    }
+    #contact .contact_submit{
+      border: 1px solid $black;
+    }
+    .contact_right{
+      background: rgb(173 173 173 / 8%) !important;
+    }
+    .custom_projectName{
+      color: $boxcolor;
+    }
+    .gsap_items{
+      &::before{
+        background-color: $black;
+      }
+    }
+}

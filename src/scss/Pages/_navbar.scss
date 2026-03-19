@@ -1,0 +1,195 @@
+#navbar{
+    width: 100%;
+    position: fixed;
+    top: 20px;
+    z-index: 30;
+  }
+
+.navbar{
+    @include center_flex;
+    @include manual_size(70%,80px);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 auto;
+    background: rgba( 255, 255, 255, 0.15 );
+    backdrop-filter: blur( 11.5px );
+    -webkit-backdrop-filter: blur( 11.5px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    @include mobile{
+        height: 50px
+    }
+    
+
+    .nav_txt{
+        @include bold;
+    }
+    .navbar_header{
+        @include center_flex(center);
+    }
+    .nav_tttxt{
+        @include bold(16px);
+    }
+    .nav_pic{
+        @include center_flex(flex-start);
+        @include manual_size(45px,45px);
+
+        @include mobile{
+            @include manual_size(25px,25px);
+        }
+    }
+    .nav_logo{
+        cursor: pointer;
+        width: 100%;
+    }
+    .nav_ul{
+        @include center_flex(center);
+        gap: 40px;
+    }
+    
+    .nav_li{
+        @include semi(16px);
+        color: $fontnav;
+        cursor: pointer;
+
+        a {
+            color: $fontnav;
+        }
+    }
+    .nav_git{
+        margin: 0 10px;
+    }
+    .nav_pix{
+        color: $fontnav;
+        cursor: pointer;
+    }
+    .nav_burger{
+        display: none;
+        @include manual_size(25px,25px);
+
+        @include tablet{
+            color: $fontnav;
+            cursor: pointer;
+            display: block;
+        }
+    }
+    .nav_moon{
+        display: none;
+    }
+    .sidemnu_mobile{
+        display: none;
+
+        @include tablet{
+            display: block;
+        }
+        .sidemnu_icon{
+            width: 25px;
+            cursor: pointer;
+        }
+    }
+    .nav_social{
+        display: flex;
+        align-items: center;
+    }
+    .nav_content,.nav-flx{
+        @include tablet{
+            display: none;
+        }
+    }
+    .container_logo{
+        @include manual_size(150px);
+    }
+    .container_image{
+        width: 100%;
+    }
+    .nav_item{
+        min-width: 130px;
+    }
+    a.active{
+        color: #9747FF !important;
+
+        &::before{
+            width: 100%;
+        }
+    }
+
+    a{
+    &::before{
+        background-color: #9747FF;
+        bottom: -6px;
+        content: "";
+        height: 2px;
+        left: 0;
+        position: absolute;
+        width: 0;
+    }
+}
+    .nav-link{
+        position: relative;
+        color: $black;
+    }
+    .sidemnu_goat{
+        position: fixed;
+        right: 0;
+        top: 0;
+        max-width: 100%;
+        @include manual_size(300px,100vh);
+        z-index: 9999;
+        -webkit-transform: translateX(23%);
+        -ms-transform: translateX(23%);
+        transform: translate(23%);
+        -webkit-transition: .6s;
+        -o-transition: .6s;
+        transition: .6s;
+        box-shadow: 1px 1px 20px 10px #0000001a;
+    }
+    .sidemnu_box{
+        overflow: auto;
+        height: 100%;
+        box-shadow: 0 0 87px #00000017;
+        background-color: $white;
+        padding: 10px 20px;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    .sidemnu_x_icon{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        @include manual_size(30px,30px);
+        color: #fff;
+        @include center_flex(center);
+        border-radius: 30px;
+        cursor: pointer;
+    }
+    .burgs_ic{
+        color: $black;
+    }
+    .rytside_content{
+        width: 100%;
+        padding-top: 35px;
+    }
+    .ryt_list{
+        margin: 0;
+        padding: 0;
+    }
+    .ryt_li{
+        padding: 5px;
+        width: 100%;
+
+        a {
+            color: $boxcolor;
+        }
+    }
+    .ryt_span{
+        color: #1a1d21;
+        display: block;
+        // @include hinez_r(0.875rem);
+    }
+    .ryt_active{
+        -webkit-transform: translateX(150%);
+        -ms-transform: translateX(150%);
+        transform: translate(150%);
+    }
+}

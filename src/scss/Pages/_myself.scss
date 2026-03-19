@@ -1,0 +1,171 @@
+.myself{
+    width: 100%;
+    padding-bottom: 20px;
+
+    .myself_content{
+        width: 70%;
+        margin: 0 auto;
+
+        @media (max-width:1500px){
+            width: 97%;
+        }
+    }
+    
+    .myself_flex{
+        @include center_flex;
+        width: 100%;
+        margin: 10px 0;
+
+        @media (max-width:1024px){
+            flex-direction: column;
+            gap: 20px;
+        }
+
+    }
+    .myself_width{
+        width: 40%;
+        @media (max-width:1024px){
+            width:100%;
+            @include center_flex(center);
+        }
+    }
+    .myself_left{
+        @include manual_size(450px,450px);
+        overflow: hidden;
+        border-radius: 20px;
+
+        @include mobile{
+            @include manual_size(350px,350px);
+        }
+
+        @media (max-width:1100px){
+            @include manual_size(350px,500px);
+        }
+
+        img {
+            width: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            height: 100%;
+            transition: 0.5s ease;
+    
+            @include mobile{
+                height: 100%;
+            }
+        }
+    }
+    
+    .myself_right{
+        @include center_flex(flex-start);
+        flex-direction: column;
+        width: 60%;
+
+        @media (max-width:1024px){
+            width: 100%;
+        }
+    }
+    .myself_aboutme{
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        padding: 30px;
+        gap: 20px;
+        border: 1px solid #1C1C21;
+        width: 100%;
+    }
+    .myself_borderone{
+        border-radius: 20px 20px 0px 0px;
+    }
+    .myself_bordertwo{
+        border-radius: 0px 0px 20px 20px;
+    }
+    .myself_brief{
+        color: $white;
+		@include semi(30px);
+        margin: 0;
+        @include mobile{
+            font-size: 20px;
+        }
+    }
+    .myself_topknot{
+        display: flex;
+        gap: 15px;
+    }
+    .myself_detrail{
+        color: $introfont;
+		@include regular(18px);
+        margin: 0;
+
+        @include mobile{
+            font-size: 14px;
+        }
+    }
+    .myself_icon{
+        @include manual_size(35px,35px);
+
+        @include mobile{
+            @include manual_size(25px,25px)
+        }
+    }
+    .svg_myself{
+        width: 100%;
+    }
+    .myself_contact{
+        @include grid_system(2);
+        width: 100%;
+        @media (max-width:750px){
+            grid-template-columns: repeat(1,1fr);
+        }
+    }
+    .myself_address{
+        @include regular(18px);
+        color: $white;    
+
+        @include mobile {
+        font-size: 14px;
+        margin: 5px 0;
+        }
+    }
+    
+}
+.myself_header{
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+        min-height: 200px;
+
+        @include tablet{
+            min-height: 150px;
+        }
+        
+        @include mobile{
+            min-height: 120px;
+        }
+       
+    }
+    .myself_t1{
+        @include semi(2.4rem);
+        color: $primary_color;
+        background: linear-gradient(90deg, rgba(204,99,247,1) 0%, rgba(120,0,184,1) 100%);
+        margin: 5px 0;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        @include mobile{
+            font-size: 2rem;
+        }
+    }
+    .myself_t2{
+        @include style(6.7rem);
+        color: $white;
+        margin: 5px 0;
+
+        @include mobile{
+            font-size: 3.5rem;
+        }
+        @media (max-width:750px){
+            font-size: 4rem;
+        }
+    }
+    

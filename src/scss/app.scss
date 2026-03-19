@@ -1,0 +1,26 @@
+//Components
+
+@import './Components/buttons';
+@import './Components/card';
+
+
+//Config
+
+@import './Config/fonts';
+@import './Config/mixins';
+@import './Config/variables';
+@import './Config/globel';
+
+
+//Themes
+@import './Themes/themes.scss';
+
+
+//Pages
+
+@import './Pages/navbar';
+@import './Pages/intro';
+@import './Pages/about';
+@import './Pages/myself';
+@import './Pages/histroy';
+@import './Pages/skills';

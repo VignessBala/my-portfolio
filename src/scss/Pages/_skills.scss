@@ -1,0 +1,12 @@
+//skills
+.body_skills{
+    width: 100%;
+  
+    .skills_img{
+      width: 100%;
+      @include center_flex(center);
+    }
+    .skuills_photo{
+      width: 100%;
+    }
+  }

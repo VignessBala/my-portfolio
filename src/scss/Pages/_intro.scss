@@ -1,0 +1,506 @@
+#hero{
+    width: 100%;
+	position: relative;
+	padding: 140px 0 70px 0;
+
+	@include mobile{
+		padding: 95px 0 40px 0;;
+	} 
+
+	.intro_content{
+		width: 70%;
+		margin: 0 auto;
+		@include center_flex(center);
+
+		@include laptop{
+			width: 90%;
+		}
+		@include tablet{
+			flex-direction: column-reverse;
+			gap: 30px;
+		}
+	}
+	.intro_dlogo{
+		width: 30%;
+		clear: both;
+		position: relative;
+		@include center_flex(center);
+	}
+	.intro_body{
+		width: 60%;
+
+		@include tablet{
+			width: 100%;
+			@include center_flex(center);
+			flex-direction: column;
+		}
+
+	
+	}
+	.avatar{
+		min-width: 300px;
+		min-height: 300px;
+		position: relative;
+		border-radius: 100%;
+
+		@include mobile {
+			min-width: 250px;
+			min-height: 250px;
+		}
+	}
+	.avatar[data-type="square"] .image{
+		animation: none;
+	}
+	.avatar[data-type="circle"] .image{
+		animation: none;
+		border-radius: 100%;
+	}
+	.avatar .image{
+		position: absolute;
+		top: 0px;
+		bottom: 0px;
+		left: 0px;
+		right: 0px;
+		background-repeat: no-repeat;
+		background-position:center;
+		background-size: cover;
+		animation: morph 8s ease-in-out infinite 1s;
+		background-blend-mode: multiply;
+		-webkit-box-shadow: inset 0px 0px 0px 9px rgba(255,255,255,.3);
+		-moz-box-shadow: inset 0px 0px 0px 9px rgba(255,255,255,.3);
+		box-shadow: inset 0px 0px 0px 9px rgba(255,255,255,.3);
+		background-image: url(/src/assets/photo1.jpg);
+		// background: beige;
+	}
+
+	.intro_tname{
+		@include semi(25px);
+		color: $white;
+		margin: 0 !important;
+		display: flex;
+		flex-direction: column;
+		letter-spacing: 8px;
+
+		@include mobile {
+			@include semi(16px);
+			letter-spacing: 5px;
+		}
+	}
+	.intro_span{
+		color: $introfont;
+		@include bold(75px);
+
+		@include tablet{
+			@include bold(50px);
+			text-align: center
+		}
+		@include mobile{
+			@include bold(30px);
+			text-align: center
+		}
+		
+
+	}
+	.intro_dname{
+		@include semi(21px);
+		color: $introfont;
+		margin: 10px 0 !important;
+		@include tablet{
+			@include semi(14px);
+			text-align: center;
+		}
+	}
+	.dot_intro{
+		color: $primary_color;
+		@include bold(90px);
+
+        @include tablet{
+			font-size: 20px;
+		}
+		@include mobile{
+			font-size: 12px;
+		}
+		
+	}
+	.intro_icons{
+		@include center_flex(flex-start);
+
+		@include mobile{
+			justify-content: center;
+		}
+	}
+
+	.intro_hand{
+		background-image: url(/src/assets/1.png);
+		background-repeat: no-repeat;
+		background-position:center;
+		background-size: cover;
+		@include manual_size(40px,40px);
+	}
+
+	.btn_intro{
+		@include center_flex(flex-start);
+		margin: 20px 0;
+
+		@include tablet{
+			margin: 8px 0;
+			justify-content: center;
+		}
+	}
+	.intro_resume{
+		height: 50px;
+		padding: 16px 32px;
+		border-radius: 9px;
+		background: linear-gradient(180deg, #1A1A1A 0%, #131313 100%);
+		color: $white;
+		box-shadow:
+		0 1px inset hsl(0 0% 100% / 0.5),
+		0 -10px 20px 10px hsl(0 0% 0% / 0.5) inset,
+		0 10px 20px 10px hsl(0 0% 50% / 0.25) inset,
+		0 1px hsl(0 0% 2% / 0.75);
+		@include medium(17px);
+		@include center_flex(center);
+	}
+
+	.no_bacsha{
+		box-shadow: none !important;
+		color: $introfont;
+		margin: 0 20px;
+	}
+	a{
+		text-decoration: none;
+	}
+	.intro_newbtn{
+		@include new_btn;
+
+		.icon{
+			display: block;
+			position: absolute;
+			left: 14px;
+			top: 50%;
+			margin-top: -11px;
+	
+			&::before{
+				content: '';
+				width: 2px;
+				height: 0;
+				background-color: $primary_color;
+				left: 100%;
+				margin-left: 14px;
+				top: -2px;
+				position: absolute;
+				z-index: 3;
+				transition: all .3s ease;
+			}
+			&::after{
+				content: '';
+				width: 2px;
+				height: 26px;
+				background-color: $introfont;
+				left: 100%;
+				margin-left: 14px;
+				top: 50%;
+				margin-top: -13px;
+				position: absolute;
+			}
+		  }
+		  .fn__svg{
+			width: 22px;
+			height: 22px;
+			display: block;
+			fill: currentColor;
+			color: $introfont;
+		  }
+		  .intro_down{
+			width: 22px;
+			height: 22px;
+			display: block;
+			color: $introfont;
+		  }
+		  .intro_spanz{
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: block;
+			fill: currentcolor;
+			color: $fontnav;
+			font-size: 16px;
+
+			@include mobile{
+				font-size: 12px;
+			}
+		  }
+	
+		&:hover{
+			.icon {
+				&::before{
+					height: 26px;
+				}
+			}
+			.intro_spanz,.intro_down{
+				color: $white ;
+				transition: all .3s ease;
+			}
+		}
+	}
+}
+
+@keyframes morph {
+	 0% {
+		 border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+	}
+	 50% {
+		 border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+	}
+	 100% {
+		 border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+	}
+}
+:root {
+	--hue: 210;
+	--size: 100px;
+	--border: 10px;
+	--speed: 1s;
+	--blur: var(--border);
+  }
+.preloader {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: $backgrounf; /* You can set this to any color you like */
+	z-index: 1000; /* Ensure it's above other components */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+
+  .preloader_img{
+	@include manual_size(150px,150px);
+	transform: translatey(0px);
+	animation: float 6s ease-in-out infinite;
+	img { width: 100%; height: auto; }
+	@include center_flex(center);
+  }
+
+  .container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -64.5px;
+	margin-top: -85.5px;
+}
+
+.ghost {
+	animation: float 3s ease-out infinite;
+}
+
+@keyframes float {
+	50% {
+		transform: translate(0, 20px);
+	}
+}
+
+.shadowFrame {
+	width: 130px;
+	margin-top: 15px;
+}
+
+.shadow {
+	animation: shrink 3s ease-out infinite;
+	transform-origin: center center;
+}
+
+.shadow ellipse {
+	transform-origin: center center;
+}
+
+@keyframes shrink {
+	0% {
+		width: 90%;
+		margin: 0 5%;
+	}
+	50% {
+		width: 60%;
+		margin: 0 20%;
+	}
+	100% {
+		width: 90%;
+		margin: 0 5%;
+	}
+}
+
+
+//Contact Page Design
+
+#contact{
+	padding-top: 120px;
+
+	.contact_section{
+		width: 70%;
+		margin: 0 auto;
+		position: relative;
+		z-index: 3;
+
+		@include laptop{
+			width: 90%;
+		}
+	}
+	.contact_body{
+		width: 100%;
+		@include grid_system(2);
+
+		@include laptop{
+			grid-template-columns: repeat(1,1fr);
+		}
+	}
+	.contact_left{
+		padding: 0 15px;
+	}
+	.contact_right{
+		width: 100%;
+		border-radius: 12px;
+		padding: 16px;
+		margin: 0 auto;
+		background: rgb(44 44 44 / 15%);
+		backdrop-filter: blur(10.5px);
+		-webkit-backdrop-filter: blur(11.5px);
+		border: 1px solid rgba(255, 255, 255, 0.18);
+	}
+	.contact_link{
+		padding: 8px 15px;
+		border: 1px solid rgba(255, 255, 255, 0.9);
+		border-radius: 30px;
+		font-size: 11px;
+		color: #ddd;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		width: -webkit-max-content;
+		width: -moz-max-content;
+		width: max-content;
+		margin-bottom: 10px;
+		@include medium(1.2em);
+		-webkit-transition: all .4s;
+		-o-transition: all .4s;
+		transition: all .4s;
+
+		&:hover{
+			background-color: $primary_color;
+			border: 1px solid transparent;
+			-webkit-transition: all .4s;
+			-o-transition: all .4s;
+			transition: all .4s;
+		}
+
+		@include tablet{
+			text-align: center;
+		}
+	}
+	.contact_details{
+		width: 100%;
+		@include tablet{
+			@include center_flex(space-between);
+			flex-direction: row-reverse;
+		}
+		@include mobile{
+			flex-direction: column;
+		}
+	}
+	.contact_detail{
+		color: $white;
+		@include semi(77px);
+		margin: 0;
+
+		@include tablet{
+			font-size: 40px;
+			text-align: center;
+		}
+		@include mobile{
+			font-size: 20px;
+		}
+	}
+	.contact_form{
+		--bs-gutter-x: 1.5rem;
+		--bs-gutter-y: 0;
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.contact_two{
+		width: 100%;
+		@include center_flex(space-between);
+		gap: 20px;
+	}
+	.contact_input{
+		margin-bottom: 30px;
+		width: 100%;
+	}
+	.contact_box{
+		width: 100%;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 5px;
+		background: transparent;
+		color: #fff;
+		padding: 15px;
+		-webkit-transition: all .4s;
+		-o-transition: all .4s;
+		transition: all .4s;
+		@include medium(1.2em);
+		color: $introfont;
+		&:focus{
+			border-color: #fff;
+			outline: none;
+		}	
+	}
+	.contat_single{
+		width: 100%;
+	}
+	.height_area{
+		min-height: 300px;
+		resize: none;
+	}
+	.contact_submit {
+		padding: 15px 35px;
+		width: 100%;
+		background: transparent;
+		-webkit-backdrop-filter: blur(4px);
+		backdrop-filter: blur(4px);
+		color: #fff;
+		text-transform: uppercase;
+		font-size: 13px;
+		letter-spacing: 1px;
+		position: relative;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 5px;
+		overflow: hidden;
+		transition: all .4s;
+		@include medium(1.2em);
+		color: $introfont;
+	
+		&:hover {
+			color: $white !important;
+	
+			&::after {
+				width: 100%;
+			}
+		}
+	
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 5px;
+			height: 100%;
+			background: $primary_color;
+			transition: all .4s;
+		}
+	}
+	
+	.contact_span{
+		position: relative;
+		z-index: 4;
+		@include medium(1em);
+		color: $white;		
+	}
+}
