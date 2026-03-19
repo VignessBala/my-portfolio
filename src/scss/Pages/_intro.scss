@@ -62,14 +62,17 @@
 		left: 0px;
 		right: 0px;
 		background-repeat: no-repeat;
-		background-position:center;
+		background-position:center 24%;
 		background-size: cover;
 		animation: morph 8s ease-in-out infinite 1s;
 		background-blend-mode: multiply;
 		-webkit-box-shadow: inset 0px 0px 0px 9px rgba(255,255,255,.3);
 		-moz-box-shadow: inset 0px 0px 0px 9px rgba(255,255,255,.3);
 		box-shadow: inset 0px 0px 0px 9px rgba(255,255,255,.3);
-		background-image: url(/src/assets/photo1.jpg);
+		background-image:
+			linear-gradient(180deg, rgba(22, 22, 28, 0.06), rgba(22, 22, 28, 0.18)),
+			url(/src/assets/bala-main.jpeg);
+		filter: saturate(1.03) contrast(1.04) brightness(0.98);
 		// background: beige;
 	}
 
