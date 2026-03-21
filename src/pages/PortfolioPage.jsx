@@ -18,7 +18,7 @@ function PortfolioPage() {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 1800);
 
     return () => clearTimeout(timeoutId);
   }, []);

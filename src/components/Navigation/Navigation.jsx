@@ -1,104 +1,113 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/bala-header-logo.svg";
 import { Link } from "react-scroll";
 import { profile } from "../../data/profile";
 
-const Navigation = () => {
-  const [isSidemenuActive, setSidemenuActive] = useState(true);
-  const emailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profile.email)}`;
+const navItems = [
+  { label: "Home", to: "hero", offset: -70 },
+  { label: "About", to: "myself" },
+  { label: "Journey", to: "history" },
+  { label: "Projects", to: "projects" },
+  { label: "Skills", to: "skills" },
+  { label: "Contact", to: "contact" },
+];
 
-  const toggleSidemenu = () => {
-    setSidemenuActive(false);
+const homeLinkProps = {
+  activeClass: "active",
+  to: "hero",
+  spy: true,
+  smooth: true,
+  offset: -70,
+  duration: 500,
+};
+
+const Navigation = () => {
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isNavVisible, setNavVisible] = useState(true);
+  const emailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profile.email)}`;
+  const sectionOffset =
+    typeof window !== "undefined" && window.innerWidth <= 850 ? -70 : -120;
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < 40) {
+        setNavVisible(true);
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      if (currentScrollY > lastScrollY + 8) {
+        setNavVisible(false);
+      } else if (currentScrollY < lastScrollY - 8) {
+        setNavVisible(true);
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.classList.toggle("menu-open", isMenuOpen);
+
+    return () => document.body.classList.remove("menu-open");
+  }, [isMenuOpen]);
+
+  const openSidemenu = () => {
+    setMenuOpen(true);
+    setNavVisible(true);
   };
 
   const closeSidemenu = () => {
-    setSidemenuActive(true);
+    setMenuOpen(false);
   };
 
   const toggleTheme = () => {
     const bodyClassList = document.body.classList;
-    bodyClassList.toggle("light-theme"); // Toggle 'dark-theme' class on body
+    bodyClassList.toggle("light-theme");
   };
+
+  const renderNavLink = (item, isMobile = false) => (
+    <Link
+      activeClass="active"
+      to={item.to}
+      spy={true}
+      smooth={true}
+      offset={item.offset ?? sectionOffset}
+      duration={500}
+      onClick={isMobile ? closeSidemenu : undefined}
+    >
+      {item.label}
+    </Link>
+  );
+
   return (
-    <section id="navbar">
+    <section id="navbar" className={isNavVisible || isMenuOpen ? "" : "nav-hidden"}>
       <div className="navbar">
         <div className="navbar_header">
-          <div className="nav_pic">
-            <img className="nav_logo" src={logo} alt="Background Image"></img>
-            {/* <p className="nav_tttxt">KANNAN</p> */}
-          </div>
+          <Link {...homeLinkProps} className="nav_homeLink">
+            <div className="nav_pic">
+              <img className="nav_logo" src={logo} alt="Bala Vigness logo" />
+            </div>
+          </Link>
           <div className="nav_content">
             <ul className="nav_ul">
-              <li className="nav_li">
-                <Link
-                  activeClass="active"
-                  to="hero"
-                  spy={true}
-                  smooth={true}
-                  offset={-70}
-                  duration={500}
-                >
-                  Home
-                </Link>
-              </li>
-              <li className="nav_li">
-                <Link
-                    activeClass="active"
-                    to="myself"
-                    spy={true}
-                    smooth={true}
-                    offset={-70}
-                    duration={500}
-                  >
-                    About
-                </Link>
+              {navItems.map((item) => (
+                <li className="nav_li" key={item.label}>
+                  {renderNavLink(item)}
                 </li>
-              <li className="nav_li"><Link
-                  activeClass="active"
-                  to="history"
-                  spy={true}
-                  smooth={true}
-                  offset={-70}
-                  duration={500}
-                >
-                  Journey
-                </Link></li>
-              <li className="nav_li">
-              <Link
-                  activeClass="active"
-                  to="projects"
-                  spy={true}
-                  smooth={true}
-                  offset={-70}
-                  duration={500}
-                >
-                  Projects
-                </Link>
-              </li>
-              <li className="nav_li">
-              <Link
-                  activeClass="active"
-                  to="skills"
-                  spy={true}
-                  smooth={true}
-                  offset={-70}
-                  duration={500}
-                >
-                  Skills
-                </Link>
-              </li>
-              <li className="nav_li">
-                <Link
-                    activeClass="active"
-                    to="contact"
-                    spy={true}
-                    smooth={true}
-                    offset={-70}
-                    duration={500}
-                  >
-                    Contact
-                </Link>
-              </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -197,7 +206,13 @@ const Navigation = () => {
                 />
               </svg>
             </span>
-            <span className="nav_git" onClick={toggleSidemenu}>
+            <button
+              type="button"
+              className="nav_menuTrigger"
+              onClick={openSidemenu}
+              aria-label="Open menu"
+              aria-expanded={isMenuOpen}
+            >
               <svg
                 className="nav_burger"
                 xmlns="http://www.w3.org/2000/svg"
@@ -209,118 +224,54 @@ const Navigation = () => {
                   clipRule="evenodd"
                   d="M4 5C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H4ZM7 12C7 11.4477 7.44772 11 8 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13H8C7.44772 13 7 12.5523 7 12ZM13 18C13 17.4477 13.4477 17 14 17H20C20.5523 17 21 17.4477 21 18C21 18.5523 20.5523 19 20 19H14C13.4477 19 13 18.5523 13 18Z"
                   fill="currentColor"
-                ></path>
+                />
               </svg>
-            </span>
+            </button>
           </div>
           <div className="sidemnu_mobile">
-            <div
-              className={`sidemnu_goat ${isSidemenuActive ? "ryt_active" : ""}`}
-            >
-              <div className="sidemnu_x_icon" onClick={closeSidemenu}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M7 7.00006L17 17.0001M7 17.0001L17 7.00006"
-                    stroke="#292929"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
+            <button
+              type="button"
+              className={`sidemenu_overlay ${isMenuOpen ? "is-open" : ""}`}
+              onClick={closeSidemenu}
+              aria-label="Close menu overlay"
+            />
+            <div className={`sidemnu_goat ${isMenuOpen ? "is-open" : ""}`}>
               <div className="sidemnu_box">
-                <div className="rytside_content">
-                  <ul className="ryt_list">
-                    <li className="ryt_li">
-                      <span className="nav-ryt_span">
-                      <Link
-                      activeClass="active"
-                      to="hero"
-                      spy={true}
-                      smooth={true}
-                      offset={-70}
-                      duration={500}
+                <div className="sidemnu_meta">
+                  <Link {...homeLinkProps} className="nav_homeLink" onClick={closeSidemenu}>
+                    <img className="nav_logo sidemenu_logo" src={logo} alt="Bala Vigness logo" />
+                  </Link>
+                  <button
+                    type="button"
+                    className="sidemnu_x_icon"
+                    onClick={closeSidemenu}
+                    aria-label="Close menu"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
                     >
-                      Home
-                    </Link>
-                      </span>
-                    </li>
-                    <li className="ryt_li">
-                      <span className="nav-ryt_span">
-                        <Link
-                        activeClass="active"
-                        to="myself"
-                        spy={true}
-                        smooth={true}
-                        offset={-70}
-                        duration={500}
-                      >
-                      About
-                      </Link>
-                   </span>
-                    </li>
-                    <li className="ryt_li">
-                      <span className="nav-ryt_span">
-                        <Link
-                        activeClass="active"
-                        to="history"
-                        spy={true}
-                        smooth={true}
-                        offset={-70}
-                        duration={500}
-                      >
-                      Journey
-                      </Link>
-                   </span>
-                    </li>
-                    <li className="ryt_li">
-                      <span className="nav-ryt_span">
-                        <Link
-                        activeClass="active"
-                        to="projects"
-                        spy={true}
-                        smooth={true}
-                        offset={-70}
-                        duration={500}
-                      >
-                      Projects
-                      </Link>
-                   </span>
-                    </li>
-                    <li className="ryt_li">
-                      <span className="nav-ryt_span">
-                        <Link
-                        activeClass="active"
-                        to="skills"
-                        spy={true}
-                        smooth={true}
-                        offset={-70}
-                        duration={500}
-                      >
-                      Skills
-                      </Link>
-                   </span>
-                    </li>
-                    <li className="ryt_li">
-                      <span className="nav-ryt_span">
-                        <Link
-                        activeClass="active"
-                        to="contact"
-                        spy={true}
-                        smooth={true}
-                        offset={-70}
-                        duration={500}
-                      >
-                      Contact
-                      </Link>
-                   </span>
-                    </li>
+                      <path
+                        d="M7 7.00006L17 17.0001M7 17.0001L17 7.00006"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div className="rytside_content">
+                  <p className="sidemenu_eyebrow">Menu</p>
+                  <ul className="ryt_list">
+                    {navItems.map((item) => (
+                      <li className="ryt_li" key={item.label}>
+                        <span className="nav-ryt_span">{renderNavLink(item, true)}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>

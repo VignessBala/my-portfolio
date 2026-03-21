@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import styled from 'styled-components';
-import VanillaTilt from 'vanilla-tilt';
+import VanillaTilt from "vanilla-tilt";
 import wishlistPlusImage from "../../assets/project-wishlist-plus.png";
 import mtnMomoImage from "../../assets/project-mtn-momo.png";
 import autoAuditImage from "../../assets/project-auto-audit.png";
@@ -19,36 +18,24 @@ import angular from "../../assets/code/angu.svg";
 import rest from "../../assets/code/restapi.svg";
 import git from "../../assets/code/git.png";
 
-
-const TiltCardContainer = styled.div`
-  perspective: 1000px;
-  width: 90%;
-  height: 360px;
-  position: relative;
-  margin: 50px auto;
-`;
-
-const TiltCard = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-`;
-
-const CardContent = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  font-size: 1.5rem;
-  font-weight: bold;
-  cursor: ${props => (props.$interactive ? 'pointer' : 'default')};
-  backface-visibility: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-`;
+const ProjectArrow = ({ className, onClick, direction }) => (
+  <button
+    type="button"
+    className={`${className} project_arrow project_arrow--${direction}`}
+    onClick={onClick}
+    aria-label={direction === "next" ? "Next project" : "Previous project"}
+  >
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+      <path
+        d={direction === "next" ? "M6 3L12 9L6 15" : "M12 3L6 9L12 15"}
+        stroke="currentColor"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  </button>
+);
 
 const projectCards = [
   {
@@ -94,39 +81,48 @@ const projectCards = [
 ];
 
 const Projects = () => {
-
   const settings = {
     dots: true,
     infinite: false,
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 1,
+    adaptiveHeight: false,
+    prevArrow: <ProjectArrow direction="prev" />,
+    nextArrow: <ProjectArrow direction="next" />,
     responsive: [
+      {
+        breakpoint: 1180,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: false,
+          dots: true,
+          arrows: true,
+        },
+      },
       {
         breakpoint: 750,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
           infinite: false,
-          dots: true
-        }
+          dots: true,
+          arrows: true,
+        },
       },
-    ]
+    ],
   };
 
-  const tiltCardRef1 = useRef(null);
-  const tiltCardRef2 = useRef(null);
-  const tiltCardRef3 = useRef(null);
-  const tiltCardRef4 = useRef(null);
-  const [showCover1, setShowCover1] = useState(false);
+  const tiltCardRefs = useRef([]);
 
   useEffect(() => {
-    [tiltCardRef1, tiltCardRef2, tiltCardRef3, tiltCardRef4].forEach((cardRef) => {
-      if (!cardRef.current) {
+    tiltCardRefs.current.forEach((cardNode) => {
+      if (!cardNode) {
         return;
       }
 
-      VanillaTilt.init(cardRef.current, {
+      VanillaTilt.init(cardNode, {
         max: 5,
         speed: 400,
         glare: true,
@@ -134,72 +130,77 @@ const Projects = () => {
         gyroscope: false,
       });
     });
+
+    return () => {
+      tiltCardRefs.current.forEach((cardNode) => {
+        cardNode?.vanillaTilt?.destroy();
+      });
+    };
   }, []);
-
-  const handleMouseMove = () => {
-    setShowCover1(true);
-  };
-
-  const handleMouseLeave = () => {
-    setShowCover1(false);
-  };
 
   return (
     <section className="myself" id="projects">
-      <div className='myself_content'>
+      <div className="myself_content">
         <div className="myself_header no_min">
           <p className="myself_t1">The Projects</p>
           <p className="myself_t2">That I Build</p>
         </div>
         <div className="project_body">
-          <Slider {...settings}>
-            {projectCards.map((project, index) => {
-              const tiltRefs = [tiltCardRef1, tiltCardRef2, tiltCardRef3, tiltCardRef4];
-              const cardMarkup = (
-                <TiltCardContainer>
-                  <TiltCard
-                    ref={tiltRefs[index]}
-                    onMouseMove={handleMouseMove}
-                    onMouseLeave={handleMouseLeave}
-                  >
-                    <CardContent $interactive={Boolean(project.href)}>
-                      <div className='card_project' style={{ background: project.background }}>
-                        <img className='box_img' src={projectBg} alt="img_box"></img>
-                        <span className='project_span'>
-                          <img className='project_img' src={project.image} alt={project.title}></img>
-                        </span>
-                        <div className='top_project' style={{ background: project.topBackground }}></div>
-                        <div className='bottom_project' style={{ background: project.bottomBackground }}></div>
-                        <p className='project_txt'>{project.title}</p>
-                        <div className='project_logo_sec'>
-                          <div className='project_sets'>
-                            {project.logos.map((logo, logoIndex) => (
-                              <img
-                                key={`${project.title}-${logoIndex}`}
-                                className={`imgs_prj${logoIndex + 1}`}
-                                src={logo}
-                              />
-                            ))}
+          <div className="project_sliderWrap">
+            <Slider {...settings}>
+              {projectCards.map((project, index) => {
+                const cardMarkup = (
+                  <div className="project_cardFrame">
+                    <div
+                      className="project_tilt"
+                      ref={(node) => {
+                        tiltCardRefs.current[index] = node;
+                      }}
+                    >
+                      <div
+                        className={`project_cardContent${
+                          project.href ? " project_cardContent--interactive" : ""
+                        }`}
+                      >
+                        <div className="card_project" style={{ background: project.background }}>
+                          <img className="box_img" src={projectBg} alt="" />
+                          <span className="project_span">
+                            <img className="project_img" src={project.image} alt={project.title} />
+                          </span>
+                          <div className="top_project" style={{ background: project.topBackground }}></div>
+                          <div className="bottom_project" style={{ background: project.bottomBackground }}></div>
+                          <p className="project_txt">{project.title}</p>
+                          <div className="project_logo_sec">
+                            <div className="project_sets">
+                              {project.logos.map((logo, logoIndex) => (
+                                <img
+                                  key={`${project.title}-${logoIndex}`}
+                                  className={`imgs_prj${logoIndex + 1}`}
+                                  src={logo}
+                                  alt=""
+                                />
+                              ))}
+                            </div>
                           </div>
+                          <p className="project_txt2">{project.description}</p>
                         </div>
-                        <p className='project_txt2'>{project.description}</p>
                       </div>
-                    </CardContent>
-                  </TiltCard>
-                </TiltCardContainer>
-              );
+                    </div>
+                  </div>
+                );
 
-              if (!project.href) {
-                return <div key={project.title}>{cardMarkup}</div>;
-              }
+                if (!project.href) {
+                  return <div key={project.title}>{cardMarkup}</div>;
+                }
 
-              return (
-                <a href={project.href} key={project.title} target="_blank" rel="noreferrer">
-                  {cardMarkup}
-                </a>
-              );
-            })}
-          </Slider>
+                return (
+                  <a href={project.href} key={project.title} target="_blank" rel="noreferrer">
+                    {cardMarkup}
+                  </a>
+                );
+              })}
+            </Slider>
+          </div>
         </div>
       </div>
     </section>

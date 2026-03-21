@@ -1,12 +1,24 @@
 //skills
 .body_skills{
-    width: 100%;
+    width: min(var(--page-shell-width), var(--page-shell-max-width));
+    margin-inline: auto;
   
     .skills_img{
       width: 100%;
       @include center_flex(center);
+      overflow: hidden;
     }
     .skuills_photo{
-      width: 100%;
+      width: min(100%, 1180px);
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 1200px){
+    .body_skills{
+      .skuills_photo{
+        width: 100%;
+      }
     }
   }

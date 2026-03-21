@@ -14,8 +14,8 @@
     }
 
     .histroy_content{
-        width: 80%;
-        margin: 0 auto;
+        width: min(var(--page-shell-width), var(--page-shell-max-width));
+        margin-inline: auto;
     }
     .histroy_toggle{
         width: 100%;
@@ -168,21 +168,128 @@
 //Projects Section
 
 .project_body{
-  // display: grid;
-  // grid-template-columns: repeat(2,1fr);
-  // align-items: center;
-  // @include laptop{
-  //   grid-template-columns: repeat(1,1fr);
-  // }
   width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+
+  .project_sliderWrap{
+    position: relative;
+    padding: 0 24px 74px;
+
+    @media (max-width: 1180px){
+      padding: 0 0 78px;
+    }
+
+    @include mobile{
+      padding-bottom: 86px;
+    }
+  }
+
+  .slick-slide{
+    padding: 0 8px;
+    box-sizing: border-box;
+  }
+
+  .slick-list{
+    margin: 0 -8px;
+  }
+
+  .slick-track{
+    display: flex !important;
+  }
+
+  .slick-slide > div{
+    height: 100%;
+  }
+
+  .slick-arrow{
+    @include manual_size(52px,52px);
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(18, 18, 22, .72);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 18px 36px rgba(0, 0, 0, .24);
+    color: $white;
+    z-index: 3;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    transition: transform .25s ease, background-color .25s ease, border-color .25s ease, opacity .25s ease;
+
+    &::before{
+      display: none;
+    }
+
+    &:hover{
+      background: rgba(151, 71, 255, .22);
+      border-color: rgba(193, 131, 255, .34);
+    }
+  }
+
+  .slick-prev{
+    left: -8px;
+  }
+
+  .slick-next{
+    right: -8px;
+  }
+
+  .slick-disabled{
+    opacity: .38;
+    cursor: default;
+  }
+
+  .slick-dots{
+    bottom: 6px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    li{
+      width: auto;
+      height: auto;
+      margin: 0;
+    }
+
+    button{
+      width: 36px;
+      height: 8px;
+      padding: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,.16);
+      transition: width .25s ease, background-color .25s ease, transform .25s ease;
+
+      &::before{
+        display: none;
+      }
+    }
+
+    .slick-active button{
+      width: 56px;
+      background: linear-gradient(90deg, #8b31ff 0%, #c183ff 100%);
+      transform: scaleY(1.05);
+      box-shadow: 0 0 24px rgba(139, 49, 255, .28);
+    }
+  }
+
+  a{
+    display: block;
+  }
 
   @include tablet{
-    width: 88%;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 620px;
+  }
+
+  @include mobile{
+    max-width: 100%;
   }
 
   .card_project{
-    padding: 1.5rem;
+    padding: 1.35rem;
     width: 100%;
     height: 100%;
     @include center_flex(center);
@@ -193,6 +300,11 @@
     border-radius: 1.5rem;
     position: relative;
     overflow: hidden;
+
+    @include mobile{
+      padding: 1rem;
+      border-radius: 1.25rem;
+    }
   }
   .box_img{
     position: absolute;
@@ -225,7 +337,7 @@
     border-radius: 0.75rem;
     --tw-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-    width: 23rem;
+    width: clamp(13rem, 22vw, 18rem);
     transform: rotate(-22.5deg);
     height: unset;
     min-width: unset !important;
@@ -233,16 +345,17 @@
     -o-object-fit: contain !important;
     object-fit: contain !important;
     left: unset !important;
-    right: 2rem;
+    right: 1.4rem;
     bottom: 0 !important;
     
-    @include tablet{
-      width: 16rem;
+    @media (max-width: 1180px){
+      width: 15rem;
       margin: 0;
+      right: .2rem;
     }
     @include mobile{
-      width: 14rem;
-      right: -1rem;
+      width: 11rem;
+      right: -0.8rem;
     }
   }
   .top_project{
@@ -262,13 +375,16 @@
   .project_txt{
     @include semi(2.25rem);
     color: $white;
-    padding-left: 0.5rem;
     position: absolute;
-    top: 0;
-    left: 10px;
+    top: 18px;
+    left: 22px;
+    max-width: 50%;
+    line-height: 1.05;
 
     @include mobile{
-      font-size: 1.8rem;
+      font-size: 1.5rem;
+      left: 18px;
+      top: 16px;
     }
   }
   .project_logo_sec{
@@ -276,19 +392,29 @@
     will-change: transform;
     display: flex;
     align-items: center;
-    width: 50%;
+    width: 42%;
     height: 100%;
-    left: 6rem;
+    left: 3.2rem;
     top: 0;
     position: absolute;
+    align-items: flex-end;
+
+    @media (max-width: 1180px){
+      left: 2.6rem;
+    }
     @include mobile{
-      left: 4rem;
+      left: 1.8rem;
+      width: 38%;
     }
   }
   .project_sets{
-    padding-bottom: 2rem;
+    padding-bottom: 2.4rem;
     flex-direction: column;
     display: flex;
+
+    @include mobile{
+      padding-bottom: 1.2rem;
+    }
   }
   .imgs_prj1{
     margin-left: 4rem;
@@ -309,22 +435,117 @@
     @include manual_size(40px,40px);
   }
   .project_txt2{
-    @include regular(12px);
+    @include regular(0.9rem, 1.45);
     color: $white;
-    bottom: 6px;
+    bottom: 18px;
     position: absolute;
-    left: 10px;
-  }
-  .jSOgxp {
-    @include tablet{
-      @include manual_size(380px,330px);
-      margin: 15px 0;
+    left: 22px;
+    right: 22px;
+    max-width: 58%;
+
+    @media (max-width: 1180px){
+      max-width: 56%;
     }
+
     @include mobile{
-      @include manual_size(290px,290px);
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      max-width: 62%;
+      font-size: .78rem;
+      line-height: 1.38;
+    }
+  }
+  .project_cardFrame{
+    perspective: 1000px;
+    width: min(100%, 500px);
+    height: clamp(320px, 28vw, 390px);
+    position: relative;
+    margin: 24px auto 40px;
+
+    @media (max-width: 1180px){
+      width: min(100%, 620px);
+      height: clamp(320px, 48vw, 390px);
+    }
+
+    @include mobile{
+      max-width: 100%;
+      height: clamp(300px, 84vw, 360px);
+      margin: 24px auto 36px;
+    }
+  }
+  .project_tilt{
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .project_cardContent{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: default;
+    backface-visibility: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  .project_cardContent--interactive{
+    cursor: pointer;
+  }
+
+  @media (max-width: 1180px){
+    .slick-arrow{
+      top: auto;
+      bottom: 0;
+      transform: none;
+      @include manual_size(46px,46px);
+    }
+
+    .slick-prev{
+      left: calc(50% - 98px);
+    }
+
+    .slick-next{
+      right: calc(50% - 98px);
+    }
+
+    .slick-dots{
+      bottom: 9px;
     }
   }
 
+  @include mobile{
+    .slick-arrow{
+      @include manual_size(42px,42px);
+      bottom: 2px;
+    }
+
+    .slick-prev{
+      left: calc(50% - 88px);
+    }
+
+    .slick-next{
+      right: calc(50% - 88px);
+    }
+
+    .slick-dots{
+      gap: 8px;
+
+      button{
+        width: 28px;
+        height: 7px;
+      }
+
+      .slick-active button{
+        width: 42px;
+      }
+    }
+  }
 }
 
 // preloader

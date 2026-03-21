@@ -40,6 +40,25 @@
    .nav_burger{
       color: $new_logo !important;
   }
+   .sidemnu_box{
+      background: rgba(255, 255, 255, 0.92) !important;
+      border-color: rgba(0, 0, 0, 0.08) !important;
+   }
+   .sidemnu_meta{
+      border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+   }
+   .sidemnu_x_icon{
+      color: $boxcolor !important;
+      border-color: rgba(0, 0, 0, 0.08) !important;
+      background: rgba(0, 0, 0, 0.03) !important;
+   }
+   .ryt_li a{
+      color: $boxcolor !important;
+      background: rgba(0, 0, 0, 0.03) !important;
+   }
+   .ryt_li a.active{
+      background: rgba(151, 71, 255, 0.12) !important;
+   }
    .no_bacsha{
       background: $bttoncolor !important;
       color: $boxcolor !important;
@@ -91,11 +110,23 @@
     .contact_box{
       border: 1px solid $black !important;
     }
-    .contact_span{
-      color: $black !important;
-    }
     #contact .contact_submit{
       border: 1px solid $black;
+    }
+    .contact_submitLabel{
+      color: $black !important;
+    }
+    .contact_loader{
+      span{
+        background: $black !important;
+      }
+    }
+    .contact_successIcon{
+      border-left-color: $black !important;
+      border-bottom-color: $black !important;
+    }
+    .contact_status{
+      color: $black !important;
     }
     .contact_right{
       background: rgb(173 173 173 / 8%) !important;

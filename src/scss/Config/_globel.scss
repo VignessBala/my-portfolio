@@ -12,6 +12,23 @@
                      var(--sb-track-color);
                      scrollbar-width: thin;
   }
+
+  :root {
+    --page-shell-width: 80%;
+    --page-shell-max-width: 1240px;
+  }
+
+  @media (max-width: 1200px) {
+    :root {
+      --page-shell-width: 92%;
+    }
+  }
+
+  @media (max-width: 450px) {
+    :root {
+      --page-shell-width: 94%;
+    }
+  }
   
   html {
     font-size: 62.5%;
